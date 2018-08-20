@@ -3,7 +3,10 @@ import Task from './Task';
 
 const TaskList = (props) => {    
     const tasks = props.tasks.map(task => (        
-        <Task key={task.id} task={task} />        
+        <Task 
+            key={task.id} 
+            task={task}
+            onStatusChange={props.onStatusChange} />        
     ));
     return(
         <div className='task-list'>
