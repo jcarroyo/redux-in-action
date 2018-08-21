@@ -13,8 +13,8 @@ class App extends Component {
     this.props.dispatch(createTask({title, description}));
   }
 
-  onTaskStatusChange = (id, status) => {
-   this.props.dispatch(taskStatusChange(id, status));     
+  onTaskStatusChange = ({id, status}) => {    
+   this.props.dispatch(taskStatusChange({id, status}));     
   }
 
   render() {

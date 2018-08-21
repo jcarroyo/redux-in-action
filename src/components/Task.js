@@ -4,13 +4,12 @@ const TASK_STATUSES = ['Unstarted', 'In Progress', 'Completed'];
 
 const Task = (props) => {
 
-    function onStatusChange(e){
-        debugger;
-        props.onStatusChange(props.task.id, e.target.value);
+    function onStatusChange(e){                        
+        props.onStatusChange({id: props.task.id, status: e.target.value});
     }
 
     const statusOptions = TASK_STATUSES.map(task => (
-        <option value={task} selected={props.task.status === task}>
+        <option value={task} key={task}>
             {task}
         </option>
     ))
@@ -18,7 +17,7 @@ const Task = (props) => {
         <div className='task'>
             <div className='task-header'>
                 <div>{props.task.title}</div>
-                <select onChange={onStatusChange}>
+                <select onChange={onStatusChange} value={props.task.status}>
                     {statusOptions} 
                 </select>
             </div>

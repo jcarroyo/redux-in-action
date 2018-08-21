@@ -1,6 +1,4 @@
 import {uniqueId} from '../actions';
-import { debug } from 'util';
-
 //The real point of reducers is to handle actions
 
 const mockTasks = [
@@ -18,8 +16,7 @@ const mockTasks = [
     }
   ]
   
-  export default function tasks(state = {tasks: mockTasks}, action){
-    debugger;
+  export default function tasks(state = {tasks: mockTasks}, action){    
     const {payload} = action;
     
     switch(action.type){
@@ -28,7 +25,7 @@ const mockTasks = [
           ...state,
           tasks: state.tasks.concat(action.payload)
         }
-    case 'TASK_STATUS_CHANGE':  
+    case 'TASK_STATUS_CHANGE':      
         return {
           ...state,
           tasks: state.tasks.map(task => {
