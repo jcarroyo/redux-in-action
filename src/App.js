@@ -5,9 +5,13 @@ import './App.css';
 import {connect} from 'react-redux'
 
 import TaskPage from './components/TaskPage';
-import {createTask, taskStatusChange} from './actions';
+import {createTask, taskStatusChange, fetchTasks} from './actions';
 
 class App extends Component {
+
+  componentDidMount(){    
+    this.props.dispatch(fetchTasks());
+  }
 
   onCreateTask = ({title, description}) => {
     this.props.dispatch(createTask({title, description}));

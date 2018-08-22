@@ -1,22 +1,8 @@
-import {uniqueId} from '../actions';
 //The real point of reducers is to handle actions
 
-const mockTasks = [
-    {
-      id: uniqueId(),
-      title: 'Learn Redux',
-      description: 'The store, actions, and reducers, oh my!',
-      status: 'In Progress'
-    },
-    {
-      id: uniqueId(),
-      title: 'Peace on Earth',
-      description: 'No big deal.',
-      status: 'In Progress'
-    }
-  ]
+
   
-  export default function tasks(state = {tasks: mockTasks}, action){    
+  export default function tasks(state = {tasks: []}, action){    
     const {payload} = action;
     
     switch(action.type){
@@ -38,6 +24,11 @@ const mockTasks = [
             return task;
           })
         }
-    }
+    case 'FETCH_TASKS_SUCCEEDED':
+      return {
+        ...state,
+        tasks: payload.tasks  
+      }
+    }    
     return state;
 }
