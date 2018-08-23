@@ -5,7 +5,7 @@ import './App.css';
 import {connect} from 'react-redux'
 
 import TaskPage from './components/TaskPage';
-import {createTask, taskStatusChange, fetchTasks} from './actions';
+import {createTask, taskStatusChange, fetchTasks, updateTask} from './actions';
 
 class App extends Component {
 
@@ -17,8 +17,8 @@ class App extends Component {
     this.props.dispatch(createTask({title, description}));
   }
 
-  onTaskStatusChange = ({id, status}) => {    
-   this.props.dispatch(taskStatusChange({id, status}));     
+  onTaskUpdate = (id, params) => {    
+   this.props.dispatch(updateTask(id, params));     
   }
 
   render() {
@@ -31,7 +31,7 @@ class App extends Component {
         <TaskPage 
           tasks={this.props.tasks}
           onCreateTask={this.onCreateTask}
-          onStatusChange={this.onTaskStatusChange} />
+          onTaskUpdate={this.onTaskUpdate} />
       </div>
     );
   }

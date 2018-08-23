@@ -1,30 +1,53 @@
 import uuid from 'uuid';
 import axios from 'axios';
+import * as api from '../api';
 
 export function uniqueId(){
     return uuid.v4();
 }
 
-//action creator
-export function createTask({title, description}){
-    //action
+
+export function createTask({title, description, status='Unstarted'}){
+    return dispatch => {
+        api.createTask({title, description, status}).then(resp => {
+            dispatch(createTaskSucceed(resp.data));
+        });
+    }
+}
+
+//sync action creator
+export function createTaskSucceed(task){
     return {
-        type: 'CREATE_TASK',
+        type: 'CREATE_TASK_SUCCEEDED',
         payload: {
-            id: uuid.v4(),
-            title,
-            description,
-            status: 'Unstarted'
+            task
         }
     }
 }
 
-export function taskStatusChange({id, status}){    
+function getTaskById(tasks, id){
+    return tasks.find(task => task.id === id);
+}
+
+export function updateTask(id, params = {}){  
+    debugger  
+    return (dispatch, getState) => {
+        const task = getTaskById(getState().tasks, id);
+        const updateTask = {
+            ...task,
+            ...params
+        };
+        api.updateTask(id, updateTask).then(resp => {
+            dispatch(updateTaskSucceed(resp.data));
+        });
+    }
+}
+
+export function updateTaskSucceed(task){
     return {
-        type: 'TASK_STATUS_CHANGE',
+        type: 'UPDATE_TASK_SUCCEED',
         payload: {
-            id,
-            status
+            task: task
         }
     }
 }
@@ -40,10 +63,8 @@ export function fetchTasksSucceeded(tasks){
 
 export function fetchTasks(){
     return dispatch => {
-        axios.get('http://localhost:3001/tasks')
-            .then(resp => {                
-                dispatch(fetchTasksSucceeded(resp.data));
-            }
-        )
+        api.fetchTasks().then(resp => {
+            dispatch(fetchTasksSucceeded(resp.data));
+        })
     }
 }

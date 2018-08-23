@@ -56,7 +56,7 @@ class TaskPage extends Component {
             key={status} 
             status={status} 
             tasks={statusTasks}
-            onStatusChange={this.props.onStatusChange} />
+            onTaskUpdate={this.props.onTaskUpdate} />
         });
       }
 

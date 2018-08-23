@@ -6,7 +6,7 @@ const TaskList = (props) => {
         <Task 
             key={task.id} 
             task={task}
-            onStatusChange={props.onStatusChange} />        
+            onTaskUpdate={props.onTaskUpdate} />        
     ));
     return(
         <div className='task-list'>
