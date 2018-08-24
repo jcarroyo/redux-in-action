@@ -5,6 +5,8 @@ import './App.css';
 import {connect} from 'react-redux'
 
 import TaskPage from './components/TaskPage';
+import FlashMessage from './components/FlashMessage';
+
 import {createTask, taskStatusChange, fetchTasks, updateTask} from './actions';
 
 class App extends Component {
@@ -17,7 +19,7 @@ class App extends Component {
     this.props.dispatch(createTask({title, description}));
   }
 
-  onTaskUpdate = (id, params) => {    
+  onTaskUpdate = (id, params) => {   
    this.props.dispatch(updateTask(id, params));     
   }
 
@@ -28,19 +30,20 @@ class App extends Component {
           <img src={logo} className="App-logo" alt="logo" />
           <h1 className="App-title">Welcome to React</h1>
         </header>
+        {this.props.error && <FlashMessage message={this.props.error} />}
         <TaskPage 
           tasks={this.props.tasks}
           onCreateTask={this.onCreateTask}
-          onTaskUpdate={this.onTaskUpdate} />
+          onTaskUpdate={this.onTaskUpdate}
+          isLoading={this.props.isLoading} />
       </div>
     );
   }
 }
 
 function mapStateToProps(state){
-  return {
-    tasks: state.tasks
-  }
+  const {tasks, isLoading, error} = state.tasks;
+  return {tasks, isLoading, error};
 }
 
 export default connect(mapStateToProps)(App);

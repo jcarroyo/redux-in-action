@@ -60,39 +60,50 @@ class TaskPage extends Component {
         });
       }
 
+    renderIsLoading(){        
+        return (
+            <div className="tasks-loading" hidden={!this.props.isLoading}>
+                Loading...
+            </div>
+        )
+    }
+
     render(){
         return(
-            <div className='task-list'>
-                <div className='task-list-header'>
-                    <button 
-                        className='button button-default'
-                        onClick={this.toggleForm}>
-                        + New Task
-                    </button>
-                </div>
-                {this.state.showNewCardFrom && (
-                    <form className='task-list-form' onSubmit={this.onCreateTask}>
-                        <input
-                            className='full-width-input'
-                            onChange={this.onTitleChange}
-                            value={this.state.title}
-                            type='text'
-                            placeholder='title' />
-                        <input
-                            className='full-width-input'
-                            onChange={this.onDescriptionChange}
-                            value={this.state.description}
-                            type='text'
-                            placeholder='description' />
-                        <button
-                            className='button'
-                            type='submit'>
-                            Submit
-                        </button>                            
-                    </form>
-                )}
+            <div>
+                {this.renderIsLoading()}            
                 <div className='task-list'>
-                    {this.renderTaskLists()}
+                    <div className='task-list-header'>
+                        <button 
+                            className='button button-default'
+                            onClick={this.toggleForm}>
+                            + New Task
+                        </button>
+                    </div>
+                    {this.state.showNewCardFrom && (
+                        <form className='task-list-form' onSubmit={this.onCreateTask}>
+                            <input
+                                className='full-width-input'
+                                onChange={this.onTitleChange}
+                                value={this.state.title}
+                                type='text'
+                                placeholder='title' />
+                            <input
+                                className='full-width-input'
+                                onChange={this.onDescriptionChange}
+                                value={this.state.description}
+                                type='text'
+                                placeholder='description' />
+                            <button
+                                className='button'
+                                type='submit'>
+                                Submit
+                            </button>                            
+                        </form>
+                    )}
+                    <div className='task-list'>
+                        {this.renderTaskLists()}
+                    </div>
                 </div>
             </div>
         );
